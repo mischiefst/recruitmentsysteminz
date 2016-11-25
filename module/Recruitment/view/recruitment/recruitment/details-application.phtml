@@ -1,0 +1,136 @@
+<div class="panel panel-default customize-panel" xmlns="http://www.w3.org/1999/html">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <span class="glyphicon glyphicon-th-list"> </span> Szczegóły aplikacji
+        </h3>
+    </div>
+    <div class="panel-body">
+        <h4>Aplikacja dotyczy: <?php echo $application['job_title']; ?></h4>
+
+        <h3 class="header-customize">Dane osobowe</h3>
+
+        <div class="row customize-box-wrapper">
+            <div class="col-md-6  ">
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <td class="customize-label-data">Imię:</td>
+                        <td><?php echo $application['name']; ?></td>
+                    </tr>
+                    <tr>
+                        <td class="customize-label-data">Nazwisko:</td>
+                        <td><?php echo $application['surname']; ?></td>
+                    </tr>
+                    <tr>
+                        <td class="customize-label-data">Data urodzenia:</td>
+                        <td><?php echo $application['birthday_date']; ?></td>
+                    </tr>
+                    <tr>
+                        <td class="customize-label-data">Telefon:</td>
+                        <td><?php echo $application['phone']; ?></td>
+                    </tr>
+                    <tr>
+                        <td class="customize-label-data">Adres e-mail:</td>
+                        <td><?php echo $application['email']; ?></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-6 col-sm-6">
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <td class="customize-label-data">ulica:</td>
+                        <td><?php echo $application['street'] . ' ' . $application['house_number'] . ' ';
+                            if ($application['flat_number'])
+                                echo 'm. ' . $application['flat_number']; ?></td>
+                    </tr>
+                    <tr>
+                        <td class="customize-label-data">kod pocztowy:</td>
+                        <td><?php echo $application['postal_code']; ?></td>
+                    </tr>
+                    <tr>
+                        <td class="customize-label-data">miasto:</td>
+                        <td><?php echo $application['city'] ?></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+        <h3 class="header-customize">Wykształcenie</a></h3>
+
+
+        <div class="panel-body">
+            <div class="customize-box-wrapper">
+                <table class="table">
+                    <tbody>
+                    <?php foreach ($educations as $education) : ?>
+                        <tr>
+                            <td class="col-md-3"><?php echo $education->school_name; ?></td>
+                            <td class="col-md-5"><?php echo $education->description; ?></td>
+                            <td class="col-md-5"><?php echo ' od ' . $education->date_from . ' do ' . $education->date_to; ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <h3 class="header-customize">Doświadczenie</h3>
+
+        <div class="panel-body">
+            <div class="customize-box-wrapper">
+                <table class="table">
+                    <tbody>
+                    <?php foreach ($experiences as $experience) : ?>
+                        <tr>
+                            <td class="col-md-4"><?php echo $experience->company_name; ?></td>
+                            <td class="col-md-4"><?php echo $experience->job_title; ?></td>
+                            <td class="col-md-5"><?php echo ' od ' . $education->date_from . ' do ' . $education->date_to; ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <h3 class="header-customize">Umiejętności</h3>
+
+
+        <div class="panel-body ">
+            <div class="customize-box-wrapper">
+                <table class="table">
+                    <tbody>
+                    <?php foreach ($skills as $skill) : ?>
+                        <tr>
+                            <td class="col-md-5 text-right"
+                                style="vertical-align: middle; font-weight: bold">
+                                <?php echo $skill['skill']->name; ?>
+                            </td>
+                            <?php $globalHelper = new \Application\View\Helper\Helper(); ?>
+                            <td class="col-md-6">
+                                <?php echo $globalHelper->changeKnowledge($skill['knowledge']); ?>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="text-center">
+            <?php if ($application['status'] == 'nowa'): ?>
+                <a href="<?php echo $this->url('recruitment', ['action' => 'invite', 'id' => $application['idApplication']]) ?>"
+                   class="btn btn-primary">Zaproś</a>
+            <?php endif; ?>
+
+            <a onclick="return confirm('Czy jesteś pewien, że chcesz odrzucić aplikację?')"
+               class="btn btn-primary"
+               href="
+                <?php echo $this->url('recruitment', ['action' => 'changeStatus', 'id' => $application['idApplication']], ['query' => ['status' => 'reject']]) ?>">
+                Odrzuć </a>
+
+        </div>
+    </div>
+</div>
+
+

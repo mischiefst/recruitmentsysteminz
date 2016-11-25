@@ -1,0 +1,54 @@
+<div class="panel panel-default customize-panel">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <span class="glyphicon glyphicon-pencil"> </span> Rozwiązanie testu
+        </h3>
+    </div>
+    <div class="panel-body">
+        <div class="customize-box-wrapper">
+            <?php $helper = new Application\View\Helper\Helper() ?>
+            <form method="post" action="<?php echo $this->url('test', ['action' => 'count', 'id' => $idResult]) ?>">
+
+                <table class="table table-bordered ">
+                    <tbody>
+                    <tr class="text-center" style="background: #dbdbdb;">
+                        <th>Pytanie</th>
+                        <th>Odpowiedź</th>
+                        <th></th>
+                    </tr>
+                    <?php foreach ($answers as $answer): ?>
+                        <?php if ($answer['type'] != 'open'): ?>
+                            <tr>
+                                <td class="col-md-5"><?php echo $answer['text']; ?></td>
+                                <td class="col-md-3"><?php echo ($answer['type'] == 'closed') ? $helper->getClosedAnswer($answer['answer']) : $answer['answer']; ?></td>
+                                <td class="col-md-2 text-center"><span
+                                        style="color:<?php echo ($helper->checkCorrectAnswer($answer)) ? 'green' : 'red'; ?> "
+                                        class="<?php echo ($helper->checkCorrectAnswer($answer)) ? 'glyphicon glyphicon-ok' : 'glyphicon glyphicon-remove'; ?>"></span>
+                                </td>
+                            </tr>
+                        <?php else: ?>
+                            <tr>
+                                <td class="col-md-3"><?php echo $answer['text']; ?></td>
+                                <td class="col-md-5"><?php echo $answer['answer']; ?></td>
+                                <td class="col-md-2"><input required placeholder="liczba punktów"
+                                                            class="form-control   text-center"
+                                                            name="open-points-<?php echo $answer['idChoice']; ?>"
+                                                            type="number"
+                                                            min="0"
+                                    <?php echo (!is_null($answer['points'])) ? 'value= ' . $answer['points'] . ' ' : '' ?>
+                                    "/>
+                                </td>
+                            </tr>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+                <div class="text-center">
+                    <input class="btn btn-primary" type="submit" value="Podlicz punkty"/>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+

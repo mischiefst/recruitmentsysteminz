@@ -1,0 +1,128 @@
+<script>
+    entryPassword('<?php echo $test->password; ?>');
+
+    function entryPassword(password) {
+        var passwordTest = password;
+        var passwordEntry = window.prompt("Podaj hasło do testu: ", "");
+        console.log(passwordTest == passwordEntry);
+        if (passwordTest == passwordEntry) {
+            return true;
+        }
+        else {
+            window.alert("Hasło nie jest prawidłowe.");
+            window.location = <?php echo json_encode($this->serverUrl() . $this->url('application', ['action' => 'index']) )?>;
+            return false;
+        }
+    }
+
+</script>
+<div class="panel panel-default customize-panel">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <span class="glyphicon glyphicon-pencil"> </span> Rozwiązywanie testu
+        </h3>
+    </div>
+    <div class="panel-body">
+        <div class="customize-box-wrapper">
+            <div class="text-right" style="font-weight: bold; font-size: 20px;"> Do końca:
+                <div class="customize-countdown" id="countdown"></div>
+            </div>
+
+            <form action="" method="post">
+
+                <?php foreach ($questionsClosed as $cQuestion): ?>
+                    <div class="form-group" style="margin: 0px 20px 20px;">
+                        <div class="row">
+                            <label class="col-md-6 control-label"
+                                   for="questionClosed"><?php echo $cQuestion['question']->text; ?></label>
+                        </div>
+
+                        <?php foreach ($cQuestion['answers'] as $answer): ?>
+                            <label class="radio-inline">
+                                <input type="radio"
+                                       name="questionClosed-<?php echo $cQuestion['question']->idQuestion ?>"
+                                       value="<?php echo $answer->idAnswer ?>">
+                                <?php echo $answer->answer; ?>
+                            </label>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endforeach; ?>
+
+
+                <?php foreach ($questionsSemi as $sQuestion): ?>
+                    <div class="form-group" style="margin: 0px 20px 20px;">
+                        <div class="row">
+                            <label class="col-md-6 control-label"
+                                   for="questionSemi"><?php echo $sQuestion->text; ?></label>
+                        </div>
+
+                        <div class="row">
+                            <input type="text" name="questionSemi-<?php echo $sQuestion->idQuestion ?>"
+                                   class="form-control input-md" required="required"
+                                   value=""/>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+
+
+
+                <?php foreach ($questionsOpen as $oQuestion): ?>
+                    <div class="form-group" style="margin: 0px 20px 20px;">
+                        <div class="row">
+                            <label class="col-md-6 control-label"
+                                   8
+                                   for="questionOpen-<?php echo $oQuestion->idQuestion ?>"><?php echo $oQuestion->text; ?></label>
+                        </div>
+
+                        <div class="row">
+                            <textarea type="text" name="questionOpen-<?php echo $oQuestion->idQuestion ?>"
+                                      class="form-control input-md myTextEditor"></textarea>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+
+                <div class="text-center"><input type="submit" name="submit" class="btn btn-primary"
+                                                onclick="return confirm('Czy chcesz zakończyć rozwiązywanie testu i przesłać odpowiedzi?')"
+                                                value="Prześlij rozwiązanie"/>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+//NIE WALIDUJ, co najwyzej KOMUNIKAT Czy jestes pewoien wyslania, bo jak wyslesz to juz nic nie mozesz zmienic i tyle
+
+
+<script>
+    function countdown(elementName, minutes, seconds) {
+        var element, endTime, hours, mins, msLeft, time;
+
+        function twoDigits(n) {
+            return (n <= 9 ? "0" + n : n);
+        }
+
+        function updateTimer() {
+            msLeft = endTime - (+new Date);
+            if (msLeft < 1000) {
+                element.innerHTML = "Czas minął. Nie możesz już wysłać testu!";
+            } else {
+                time = new Date(msLeft);
+                hours = time.getUTCHours();
+                mins = time.getUTCMinutes();
+                element.innerHTML = (hours ? hours + ':' + twoDigits(mins) : mins) + ':' + twoDigits(time.getUTCSeconds());
+                setTimeout(updateTimer, time.getUTCMilliseconds() + 500);
+            }
+        }
+
+        element = document.getElementById(elementName);
+        endTime = (+new Date) + 1000 * (60 * minutes + seconds) + 500;
+        updateTimer();
+    }
+    var timeEnd = <?php echo ((isset($_COOKIE['test-'.$idResult]))?$_COOKIE['test-'.$idResult]:time()) + ($test->time * 60); ?>;
+    var actualTime = <?php echo time(); ?>;
+    var timeToEnd = timeEnd - actualTime;
+
+    countdown("countdown", 0, timeToEnd);
+
+
+
+</script>

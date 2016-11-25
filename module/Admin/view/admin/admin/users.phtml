@@ -1,0 +1,52 @@
+<div class="panel panel-default customize-panel">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <span class="glyphicon glyphicon-user"> </span> Użytkownicy
+        </h3>
+    </div>
+    <div class="panel-body">
+        <div class="text-right">
+            <form action="" method="post">
+                <input required placeholder="szukaj użytkownika..." class="form-control"
+                       style="width: 200px; display:inline"
+                       type="text" name="search"/>
+                <input class="btn btn-primary" type="submit" value="szukaj"/>
+            </form>
+        </div>
+
+        <div class="customize-box-wrapper table-responsive">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Imię i nazwisko</th>
+                    <th>Nazwa użytkownika</th>
+                    <th>E-mail</th>
+                    <th>Telefon</th>
+                    <th>Rola</th>
+                    <th>Data rejestracji</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($users as $user) : ?>
+                    <tr>
+                        <td class="col-md-2">
+                            <a href="<?php echo $this->url('admin', ['action' => 'detailsUser', 'id' => $user['idUser']]) ?>">
+                                <?php echo $user['name'] . ' ' . $user['surname']; ?>
+                            </a>
+                        </td>
+                        <td class="col-md-2"><?php echo $user['login'] ?></td>
+                        <td class="col-md-2"><?php echo $user['email'] ?></td>
+                        <td class="col-md-2"><?php echo $user['phone'] ?></td>
+                        <td class="col-md-2"><?php echo ($user['rule'] > 1) ? 'Administrator' : 'Użytkownik'; ?> <a
+                                href="<?php echo $this->url('admin', ['action' => 'changeRole', 'id' => $user['idUser']]) ?>"
+                                style="font-size: 10px"
+                                onclick="return confirm('Czy jesteś pewien, że chcesz zmienić prawa tego użytkownika?')">zmień</a>
+                        </td>
+                        <td class="col-md-3"><?php echo $user['date_registration'] ?></td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

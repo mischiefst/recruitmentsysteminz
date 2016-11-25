@@ -1,0 +1,56 @@
+<div class="panel panel-default customize-panel">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <span class="glyphicon glyphicon-bookmark"></span> Panel administratora</h3>
+    </div>
+    <div class="panel-body">
+        <article class="text-center">
+            Witaj w panelu administratora! Z tego poziomu możesz zarządzać systemem i użytkownikami. <br/> Przejdź do
+            interesującej Cię sekcji.
+        </article>
+        <div class="row text-center " style="margin: 20px 0px">
+            <div class="col-md-4">
+                <a href="<?php echo $this->url('advertisement', ['action' => 'list']) ?>"
+                   style="padding-top: 50px; padding-bottom: 50px; background: #2ca02c; border: none;"
+                   class="btn btn-success btn-lg btn-block" role="button"><span
+                        class="glyphicon glyphicon-th"></span> Ogłoszenia</a>
+            </div>
+            <div class="col-md-4">
+                <a href="<?php echo $this->url('test', ['action' => 'create']) ?>"
+                   style="padding-top: 50px; padding-bottom: 50px; background: #a01f00; border: none;"
+                   class="btn btn-success btn-lg btn-block " role="button"><span
+                        class="glyphicon glyphicon-pencil"></span> Stwórz test</a>
+            </div>
+            <div class="col-md-4">
+                <a href="<?php echo $this->url('test', ['action' => 'allTests']) ?>"
+                   style="padding-top: 50px; padding-bottom: 50px; background: #33a09c; border: none;"
+                   class="btn btn-success btn-lg btn-block " role="button"><span
+                        class="glyphicon glyphicon-tower"></span> Sprawdź testy</a>
+            </div>
+        </div>
+
+        <div class="row text-center " style="margin: 20px 0px">
+            <div class="col-md-4">
+                <a href="<?php echo $this->url('skill', ['action' => 'add']) ?>"
+                   style="padding-top: 50px; padding-bottom: 50px; background: #2035a0; border: none;"
+                   class="btn btn-success btn-lg btn-block " role="button"><span
+                        class="glyphicon glyphicon-certificate"></span> Zarządzaj umiejętnościami</a>
+            </div>
+            <div class="col-md-4">
+                <a href="<?php echo $this->url('admin', ['action' => 'users']) ?>"
+                   style="padding-top: 50px; padding-bottom: 50px; background: #a09d31; border: none;"
+                   class="btn btn-success btn-lg btn-block " role="button"><span
+                        class="glyphicon glyphicon-user"></span> Zarządzaj użytkownikami</a>
+            </div>
+            <div class="col-md-4">
+                <a href="<?php echo $this->url('advertisement', ['action' => 'create']) ?>"
+                   style="padding-top: 50px; padding-bottom: 50px; background: #a04396; border: none;"
+                   class="btn btn-success btn-lg btn-block " role="button"><span
+                        class="glyphicon glyphicon-th"></span> Utwórz ogłoszenie</a>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+

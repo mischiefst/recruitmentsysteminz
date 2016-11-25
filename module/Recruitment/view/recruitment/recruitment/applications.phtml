@@ -1,0 +1,246 @@
+<div class="panel panel-default customize-panel">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <span class="glyphicon glyphicon-th-list"> </span> Aplikacje - <?php echo $_GET['title']; ?>
+        </h3>
+    </div>
+    <?php $helper = new \Application\View\Helper\Helper(); ?>
+
+    <div class="panel-body table-responsive">
+        <div>
+            <span class="pull-right">
+                        <ul class="nav panel-tabs">
+                            <li class="active"><a href="#tab1" data-toggle="tab">Nowe</a></li>
+                            <li><a href="#tab2" data-toggle="tab">Zaproszone na test</a></li>
+                            <li><a href="#tab3" data-toggle="tab">Po teście</a></li>
+                            <li><a href="#tab4" data-toggle="tab">Zaproszone na rozmowę</a></li>
+                            <li><a href="#tab5" data-toggle="tab">Odrzucone</a></li>
+                        </ul>
+            </span>
+        </div>
+        <div class="tab-content ">
+            <div class="tab-pane active" id="tab1">
+                <div class="customize-box-wrapper ">
+                    <h4>Nowe</h4>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Imię i nazwisko</th>
+                            <th>Data zgłoszenia</th>
+                            <th>Status</th>
+                            <th>Akcja</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php foreach ($applicationsNew as $application) : ?>
+                            <tr>
+                                <td class="col-md-3"><?php echo $application['name'] . ' ' . $application['surname']; ?></td>
+                                <td class="col-md-3"><?php echo $application['date_application']; ?></td>
+                                <td class="col-md-3"><?php echo $application['status']; ?></td>
+                                <td class="col-md-3 customize-action">
+                                    <a href="<?php echo $this->url('recruitment', ['action' => 'detailsApplication', 'id' => $application['idApplication']]) ?>"
+                                    >Szczegóły </a> |
+                                    <a
+                                        onclick="return confirm('Czy jesteś pewien, że chcesz odrzucić aplikację?')"
+                                        href="
+                <?php echo $this->url('recruitment', ['action' => 'changeStatus', 'id' => $application['idApplication']], ['query' => ['status' => 'reject']]) ?>"
+                                    >Odrzuć aplikację</a>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="tab-pane" id="tab2">
+                <div class="customize-box-wrapper ">
+                    <h4>Zaproszone na test</h4>
+
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Imię i nazwisko</th>
+                            <th>Data testu</th>
+                            <th>Akcja</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php foreach ($applicationsTest as $application) : ?>
+                            <tr>
+                                <td class="col-md-4">
+                                    <?php echo $application['name'] . ' ' . $application['surname']; ?></td>
+                                <td class="col-md-5">
+                                    <?php echo $application['date']; ?></td>
+                                <td class="col-md-3 customize-action">
+                                    <a href="
+                <?php echo $this->url('recruitment', ['action' => 'detailsApplication', 'id' => $application['idApplication']]) ?>"
+                                    >Szczegóły </a>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+            <div class="tab-pane" id="tab3">
+                <div class="customize-box-wrapper">
+                    <h4>Po teście</h4>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Imię i nazwisko</th>
+                            <th>Wynik</th>
+                            <th>Akcja</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php foreach ($applicationsCheck as $application) : ?>
+                            <tr>
+                                <td class="col-md-3">
+                                    <?php echo $application['name'] . ' ' . $application['surname']; ?></td>
+                                <td class="col-md-3">
+                                    <?php echo ($application['score'] < 0) ? 'wymaga sprawdzenia' : $application['score']; ?></td>
+                                <td class="col-md-5 customize-action">
+                                    <a href="
+                <?php echo $this->url('recruitment', ['action' => 'detailsApplication', 'id' => $application['idApplication']]) ?>"
+                                    >Szczegóły aplikacji </a> | <a href="
+                <?php echo $this->url('test', ['action' => 'answers', 'id' => $helper->getResult($application['idApplication'])->idResult]) ?>"
+                                    >Sprawdź
+                                        test </a> |
+                                    <a href="
+                <?php echo $this->url('recruitment', ['action' => 'changeStatus', 'id' => $application['idApplication']], ['query' => ['status' => 'speak']]) ?>"
+                                    >Zaproś na rozmowę</a>| <a
+                                        onclick="return confirm('Czy jesteś pewien, że chcesz odrzucić aplikację?')"
+                                        href="
+                <?php echo $this->url('recruitment', ['action' => 'changeStatus', 'id' => $application['idApplication']], ['query' => ['status' => 'reject']]) ?>"
+                                    >Odrzuć
+                                        aplikację</a>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+            <div class="tab-pane" id="tab4">
+                <div class="customize-box-wrapper">
+                    <h4>Zaproszone na rozmowę</h4>
+
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Imię i nazwisko</th>
+                            <th>Data zgłoszenia</th>
+                            <th>Status</th>
+                            <th>Akcja</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php foreach ($applicationsInterview as $application) : ?>
+                            <tr>
+                                <td class="col-md-3">
+                                    <?php echo $application['name'] . ' ' . $application['surname']; ?></td>
+                                <td class="col-md-3">
+                                    <?php echo $application['date_application']; ?></td>
+                                <td class="col-md-3"><?php echo $application['status']; ?></td>
+                                <td class="customize-action">
+                                    <a href="
+                <?php echo $this->url('recruitment', ['action' => 'detailsApplication', 'id' => $application['idApplication']]) ?>"
+                                    >Szczegóły </a> |
+                                    <a onclick="return confirm('Czy jesteś pewien, że chcesz odrzucić aplikację?')"
+                                       href="
+                <?php echo $this->url('recruitment', ['action' => 'changeStatus', 'id' => $application['idApplication']], ['query' => ['status' => 'reject']]) ?>"
+                                    >Odrzuć aplikację</a>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="tab-pane" id="tab5">
+
+                <div class="customize-box-wrapper">
+                    <h4>Odrzucone</h4>
+
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Imię i nazwisko</th>
+                            <th>Data zgłoszenia</th>
+                            <th>Status</th>
+                            <th>Akcja</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php foreach ($applicationsReject as $application) : ?>
+                            <tr>
+                                <td class="col-md-3">
+                                    <?php echo $application['name'] . ' ' . $application['surname']; ?></td>
+                                <td class="col-md-3">
+                                    <?php echo $application['date_application']; ?></td>
+                                <td class="col-md-3"><?php echo $application['status']; ?></td>
+                                <td class="customize-action">
+                                    <a href="
+                <?php echo $this->url('recruitment', ['action' => 'detailsApplication', 'id' => $application['idApplication']]) ?>"
+                                    >Szczegóły </a>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<style>
+    /*Panel tabs*/
+    .panel-tabs {
+        position: relative;
+        bottom: 0px;
+        clear: both;
+        border-bottom: 1px solid transparent;
+    }
+
+    .panel-tabs > li {
+        float: left;
+        margin-right: 2px;
+        margin-top: 4px;
+        line-height: .85;
+        border: 1px solid transparent;
+        border-radius: 4px 4px 0 0;
+        color: #918D99;
+        background: #edf4f4;
+    }
+
+    .panel-tabs > li > a {
+        line-height: .85;
+        border: 1px solid transparent;
+        border-radius: 4px 4px 0 0;
+        color: #918D99;
+    }
+
+    .panel-tabs > li > a:hover {
+        border-color: transparent;
+        color: #9898a3;
+
+    }
+
+    .panel-tabs > li.active > a,
+    .panel-tabs > li.active > a:hover,
+    .panel-tabs > li.active > a:focus {
+        color: #aaafb4;
+        cursor: default;
+        font-weight: bold;
+        -webkit-border-radius: 2px;
+        -moz-border-radius: 2px;
+        border-radius: 2px;
+        background-color: rgba(255, 255, 255, .23);
+        border-bottom-color: transparent;
+    }
+</style>

@@ -1,0 +1,45 @@
+<div class="panel panel-default customize-panel">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <span class="glyphicon glyphicon-list-alt"> </span> Doświadczenie
+        </h3>
+    </div>
+    <div class="text-right">
+        <a class="btn btn-primary" href="<?php echo $this->url('data', array('action' => 'addExperience')); ?>">Dodaj
+            doświadczenie</a>
+    </div>
+    <div class="panel-body">
+        <div class="customize-box-wrapper table-responsive">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Nazwa firmy</th>
+                    <th>Stanowisko</th>
+                    <th>Od</th>
+                    <th>Do</th>
+                    <th>Akcja</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($experiences as $experience) : ?>
+                    <tr>
+                        <td class="col-md-4"><?php echo $experience->company_name; ?></td>
+                        <td class="col-md-4"><?php echo $experience->job_title; ?></td>
+                        <td class="col-md-2"><?php echo $experience->date_from; ?></td>
+                        <td class="col-md-2"><?php echo $experience->date_to; ?></td>
+
+                        <td>
+                            <a href="<?php echo $this->url('data', array('action' => 'editExperience', 'id' => $experience->idExperience)); ?>"
+                               class="glyphicon glyphicon-edit"></a>
+                            <a onclick="return confirm('Czy jesteś pewien, że chcesz usunąć?')"
+                               href="<?php echo $this->url('data', array('action' => 'deleteExperience', 'id' => $experience->idExperience)); ?>"
+                               class="glyphicon glyphicon-remove-circle"></a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

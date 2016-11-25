@@ -1,0 +1,68 @@
+<div class="panel panel-default customize-panel">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <span class="glyphicon glyphicon-th-list"> </span> Ogłoszenie
+        </h3>
+    </div>
+
+
+    <?php
+
+    $helper = new \Application\View\Helper\Helper();
+
+    $form->prepare();
+
+    echo $this->form()->openTag($form);
+    echo $this->formHidden($form->get('idAdvertisement'));
+
+    ?>
+    <fieldset>
+        <div class="form-group">
+            <?php echo $this->formLabel($form->get('job_title')); ?>
+            <div class="col-md-6">
+                <?php echo $this->formInput($form->get('job_title')); ?>
+                <?php echo $helper->formError($this, $form, 'job_title'); ?>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <?php echo $this->formLabel($form->get('text')); ?>
+            <div class="col-md-6">
+                <?php echo $this->formElement($form->get('text')); ?>
+                <?php echo $helper->formError($this, $form, 'text'); ?>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <?php echo $this->formLabel($form->get('skills')); ?>
+            <div class="col-md-6">
+                <?php echo $this->formElement($form->get('skills')); ?>
+                <?php echo $helper->formError($this, $form, 'skills'); ?>
+
+                <span class="text-info">Brakuje umiejętności? <a
+                        href="<?php echo $this->url('skill', ['action' => 'add']) ?>">Dodaj</a></span>
+            </div>
+        </div>
+
+    </fieldset>
+    <div class="text-center">
+        <?php echo $this->formSubmit($form->get('submit')); ?>
+    </div>
+    <?php echo $this->form()->closeTag(); ?>
+</div>
+<script>
+
+        $('#tags').tagsinput({
+            itemValue: 'idSkill',
+            itemText: 'name',
+            typeahead: {
+                name: 'skills',
+                source: <?php echo json_encode($skillsArray); ?>,
+                afterSelect: function (val) {
+                    this.$element.val("");
+                }
+            },
+            freeInput: false
+        })
+        ;
+</script>

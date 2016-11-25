@@ -1,0 +1,57 @@
+<div class="panel panel-default customize-panel">
+    <div class="panel-heading" style="">
+        <h3 class="panel-title" style="">
+            <span class="glyphicon glyphicon-th-list"> </span> System rekrutacji pracowniczej
+        </h3>
+    </div>
+    <?php $helper = new Application\View\Helper\Helper(); ?>
+
+    <div class="panel-body">
+        <div class="col-sm-<?php echo ($helper->isLogged())?12:6 ?>">
+            <h4>RecruitmentSystem</h4>
+
+            <p class="text-justify">
+                To system stworzony na potrzeby rekrutacji firmy XYZ. Dzięki stworzonej bazie ogłoszeń możesz aplikować
+                do nas szybciej i prościej.
+                <br/> <br/>
+                <strong>
+                    Jakie korzyści płyną z korzystania z systemu?
+                </strong>
+            <ul>
+                <li>
+                    Ocena umiejętności pozwala precyzyjniej określić predyspozycje kandydata,
+                </li>
+                <li>
+                    Wstępne testy umożliwiają sprawdzenie umiejętności praktycznych, a nie tylko deklarowanych,
+                </li>
+                <li>
+                    Testy pozwalają na selekcję potencjalnych kandydatów i wybór najlepszych!
+                </li>
+            </ul>
+            </p>
+        </div>
+        <?php if (!$helper->isLogged()): ?>
+            <div class="col-sm-6 text-center " style="font-weight: bold;">
+                Poszukujesz pracy? Chcesz do nas dołączyć?
+                <div class="row text-center ">
+                    <div class="col-md-12" style="margin: 10px auto">
+                        <a href="<?php echo $this->url('account', ['action' => 'register']) ?>"
+                           style="padding-top: 20px; padding-bottom: 20px; background: #2035a0; border: none;"
+                           class="btn btn-success btn-lg btn-block " role="button"><span
+                                class="glyphicon glyphicon-user"></span> Załóż konto</a>
+                    </div>
+                </div>
+                lub
+                <div class="row text-center">
+                    <div class="col-md-12 " style="margin: 10px auto">
+                        <a href="<?php echo $this->url('advertisement', ['action' => 'index']) ?>"
+                           style="padding-top: 20px; padding-bottom: 20px; background: #2ca02c; border: none;"
+                           class="btn btn-success btn-lg btn-block" role="button"><span
+                                class="glyphicon glyphicon-th"></span> Przeglądaj ogłoszenia</a>
+                    </div>
+                </div>
+            </div>
+        <?php endif; ?>
+
+    </div>
+</div>

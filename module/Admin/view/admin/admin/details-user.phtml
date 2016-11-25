@@ -1,0 +1,83 @@
+<div class="panel panel-default customize-panel">
+    <div class="panel-heading" style="">
+        <h3 class="panel-title" style="">
+            <span class="glyphicon glyphicon-user"> </span> Dane użytkownika
+        </h3>
+    </div>
+    <?php
+    $helper = new \Application\View\Helper\Helper();
+
+    $form->prepare();
+
+    echo $this->form()->openTag($form);
+    echo $this->formHidden($form->get('idUser'));
+    ?>
+
+    <fieldset>
+        <h4 class="customize-form-header">Dane użytkownika</h4>
+        <?php $form->get('login')->setAttributes(array(
+            'disabled' => 'disabled',
+        )); ?>
+        <div class="form-group">
+            <?php echo $this->formLabel($form->get('login')); ?>
+            <div class="col-md-4">
+                <?php echo $this->formInput($form->get('login')); ?>
+                <?php echo $helper->formError($this, $form, 'login'); ?>
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <?php echo $this->formLabel($form->get('name')); ?>
+            <div class="col-md-4">
+                <?php echo $this->formInput($form->get('name')); ?>
+                <?php echo $helper->formError($this, $form, 'name'); ?>
+            </div>
+        </div>
+        <div class="form-group">
+            <?php echo $this->formLabel($form->get('surname')); ?>
+            <div class="col-md-4">
+                <?php echo $this->formInput($form->get('surname')); ?>
+                <?php echo $helper->formError($this, $form, 'surname'); ?>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <?php echo $this->formLabel($form->get('gender')); ?>
+            <div class="col-md-4">
+                <?php echo $this->formRadio($form->get('gender')); ?>
+                <?php echo $helper->formError($this, $form, 'gender'); ?>
+            </div>
+        </div>
+        <div class="form-group">
+            <?php echo $this->formLabel($form->get('birthday_date')); ?>
+            <div class="col-md-4">
+                <?php echo $this->formInput($form->get('birthday_date')); ?>
+                <?php echo $helper->formError($this, $form, 'birthday_date'); ?>
+
+            </div>
+        </div>
+        <div class="form-group">
+            <?php echo $this->formLabel($form->get('email')); ?>
+            <div class="col-md-4">
+                <?php echo $this->formInput($form->get('email')); ?>
+                <?php echo $helper->formError($this, $form, 'email'); ?>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <?php echo $this->formLabel($form->get('phone')); ?>
+            <div class="col-md-4">
+                <?php echo $this->formInput($form->get('phone')); ?>
+                <?php echo $helper->formError($this, $form, 'phone'); ?>
+            </div>
+        </div>
+    </fieldset>
+    <div class="text-center">
+        <?php echo $this->formSubmit($form->get('submit')); ?>
+    </div>
+    <?php echo $this->form()->closeTag(); ?>
+
+</div>
+
+

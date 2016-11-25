@@ -1,0 +1,59 @@
+<div class="panel panel-default customize-panel">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <span class="glyphicon glyphicon-pencil"> </span> Tworzenie testu
+        </h3>
+    </div>
+    <div class="panel-body">
+        <div class="customize-box-wrapper">
+            <?php
+            $helper = new \Application\View\Helper\Helper();
+
+            $form->prepare();
+
+            echo $this->form()->openTag($form);
+            echo $this->formHidden($form->get('idTest'));
+            ?>
+            <div class="form-group">
+                <?php echo $this->formLabel($form->get('name')); ?>
+                <div class="col-md-6">
+                    <?php echo $this->formInput($form->get('name')); ?>
+                    <?php echo $helper->formError($this, $form, 'name'); ?>
+                </div>
+            </div>
+            <div class="form-group">
+                <?php echo $this->formLabel($form->get('description')); ?>
+                <div class="col-md-6">
+                    <?php echo $this->formElement($form->get('description')); ?>
+                    <?php echo $helper->formError($this, $form, 'description'); ?>
+                </div>
+            </div>
+            <div class="form-group">
+                <?php echo $this->formLabel($form->get('time')); ?>
+                <div class="col-md-6">
+                    <?php echo $this->formElement($form->get('time')); ?>
+                    <?php echo $helper->formError($this, $form, 'time'); ?>
+                </div>
+            </div>
+            <div class="form-group">
+                <?php echo $this->formLabel($form->get('password')); ?>
+                <div class="col-md-6">
+                    <?php echo $this->formElement($form->get('password')); ?>
+                    <?php echo $helper->formError($this, $form, 'password'); ?>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="text-center">
+            <?php echo $this->formSubmit($form->get('submit')); ?>
+        </div>
+        <?php echo $this->form()->closeTag(); ?>
+    </div>
+</div>
+
+<script>
+    setTimeout(function(){
+        $('.customize-col-sidebar').css('height', $('body').outerHeight() - $('.customize-navbar').height());
+    },2000);
+</script>

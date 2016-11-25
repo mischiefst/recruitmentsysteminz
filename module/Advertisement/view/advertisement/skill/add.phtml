@@ -1,0 +1,43 @@
+<div class="panel panel-default customize-panel">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <span class="glyphicon glyphicon-certificate"> </span> Umiejętności
+        </h3>
+    </div>
+    <div class="text-center">
+        <?php
+
+        $helper = new \Application\View\Helper\Helper();
+
+        $form->prepare();
+
+        echo $this->form()->openTag($form);
+        echo $this->formHidden($form->get('idSkill'));
+
+        ?>
+        <div class="form-group">
+            <?php echo $this->formLabel($form->get('name')); ?>
+            <?php echo $this->formInput($form->get('name')); ?>
+        </div>
+
+        <?php echo $this->formSubmit($form->get('submit')); ?>
+        <?php echo $helper->formError($this, $form, 'name'); ?>
+
+        <?php echo $this->form()->closeTag(); ?>
+
+
+    </div>
+    <h4 class="modal-header"></h4>
+
+    <div class="text-center">
+        <div class="customize-skill">
+
+            <?php
+            foreach ($skills as $skill) {
+                echo '<span style="white-space: normal" class="label label-info">' . $skill['name'] . ' ' . '<a onclick="return confirm(\'Usunięcie umiejętności spowoduje także usunięcie jej z powiązanych ogłoszeń i aplikacji. Czy jesteś pewien, że chcesz usunąć?\')"  class="clickalert" href="'.$this->url('skill', ['action' => 'delete', 'id' => $skill['idSkill']]).'">x</a> </span>';
+            }
+            ?>
+        </div>
+    </div>
+
+</div>

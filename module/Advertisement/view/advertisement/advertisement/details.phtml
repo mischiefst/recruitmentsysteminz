@@ -1,0 +1,29 @@
+<div class="panel panel-default customize-panel">
+    <div class="panel-heading" style="">
+        <h3 class="panel-title" style="">
+            <span class="glyphicon glyphicon-th-list"> </span> Ogłoszenie - złóż aplikację!
+        </h3>
+    </div>
+    <div class="panel-body">
+        <h3 class="text-center"> <?php echo $advertisement->job_title; ?></h3>
+        <h6 class="text-center">
+           <strong>Data publikacji:</strong>  <?php echo $advertisement->date_added; ?>
+           <strong>Numer ogłoszenia:</strong> #<?php echo $advertisement->idAdvertisement; ?>
+        </h6>
+
+        <div class="customize-details">
+            <h4>Opis stanowiska:</h4>
+            <?php echo $advertisement->text; ?>
+            <h4>Wymagane umiejętności:</h4>
+            <ul>
+                <?php foreach ($skills as $skill) : ?>
+                    <li><?php echo $skill->name; ?></li>
+                <?php endforeach; ?>
+            </ul>
+            <div class="text-center">
+                <a href="<?php echo $this->url('recruitment', ['action' => 'apply', 'id'=> $advertisement->idAdvertisement]) ?>" class="btn btn-primary">Aplikuj</a>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,30 @@
+[
+  {
+    "idSkill": "6",
+    "name": "ajax"
+  },
+  {
+    "idSkill": "4",
+    "name": "css"
+  },
+  {
+    "idSkill": "3",
+    "name": "html"
+  },
+  {
+    "idSkill": "2",
+    "name": "java"
+  },
+  {
+    "idSkill": "5",
+    "name": "javascript"
+  },
+  {
+    "idSkill": "7",
+    "name": "linux"
+  },
+  {
+    "idSkill": "1",
+    "name": "php"
+  }
+]

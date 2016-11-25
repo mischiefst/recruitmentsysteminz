@@ -1,0 +1,181 @@
+<?= $this->doctype() ?>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <?= $this->headTitle('RecruitmentSystem - system rekrutacyjny')->setSeparator(' - ')->setAutoEscape(false) ?>
+
+    <?= $this->headMeta()
+        ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+        ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+    ?>
+
+    <!-- Le styles -->
+    <?= $this->headLink(['rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.png'])
+        ->prependStylesheet($this->basePath('bootstrap/css/style.css'))
+        ->prependStylesheet($this->basePath('bootstrap/css/stars.css'))
+        ->prependStylesheet($this->basePath('bootstrap/css/bootstrap.min.css'))
+        ->prependStylesheet($this->basePath('bootstrap/css/bootstrap-tagsinput.css'))
+    ?>
+
+    <!-- Scripts -->
+    <?= $this->headScript()
+        ->prependFile($this->basePath('bootstrap/src/bootstrap-tagsinput.js'))
+        ->prependFile($this->basePath('bootstrap/js/bootstrap.min.js'))
+        ->prependFile($this->basePath('bootstrap/src/bootstrap3-typeahead.js'))
+        ->prependFile($this->basePath('bootstrap/js/jquery.min.js'))
+        ->prependFile($this->basePath('bootstrap/js/tinymce4.min.js'))
+    ?>
+    <script>tinymce.init({editor_selector: "myTextEditor", mode: "specific_textareas"});</script>
+</head>
+<body>
+
+
+<?php
+$logged = isset($_SESSION["user"]);
+$helper = new \Application\View\Helper\Helper();
+$isAdmin = $helper->isRuleAdmin();
+?>
+<div class="container-fluid">
+    <nav class="customize-navbar navbar navbar-default" role="navigation">
+        <div class="customize-container-fluid container-fluid row text-center">
+            <div class=" navbar-header col-lg-3 col-xs-4  ">
+
+                <a class="customize-brand navbar-brand"
+                   href="<?php echo $this->url('application', ['action' => 'index']) ?>">RecruitmentSystem</a>
+
+            </div>
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target=".navbar-menubuilder">
+                <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span
+                    class="icon-bar"></span><span class="icon-bar"></span>
+            </button>
+            <div class="collapse navbar-collapse navbar-menubuilder col-lg-9 col-xs-12">
+                <ul class="nav navbar-nav navbar-left nav-customize">
+                    <li>
+                        <a href="<?php echo $this->url('application', ['action' => 'index']) ?>"><span
+                                class="glyphicon glyphicon-home"> </span> Strona główna</a>
+                    </li>
+                    <li><a href="<?php echo $this->url('advertisement', ['action' => 'index']) ?>"><span
+                                class="glyphicon glyphicon-th"> </span> Ogłoszenia</a></li>
+                    <?php if (!$logged) : ?>
+                        <li><a href="<?php echo $this->url('account', ['action' => 'login']) ?>"><span
+                                    class="glyphicon glyphicon-log-in"> </span> Logowanie</a></li>
+                        <li>
+                            <a href="<?php echo $this->url('account', ['action' => 'register']) ?>">
+                                <span class="glyphicon glyphicon-user"> </span> Rejestracja</a>
+                        </li>
+                    <?php endif; ?>
+                    <li><a href="<?php echo $this->url('admin', ['action' => 'contact']) ?>"
+                        ><span
+                                class="glyphicon glyphicon-envelope"> </span> Kontakt</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div id="row" class="row">
+
+        <?php if ($logged): ?>
+            <div class="col-lg-3 col-xs-4 customize-col-sidebar" id="customize-col-sidebar">
+                <span class="trigger glyphicon glyphicon-menu-right"></span>
+
+                <div class="text-center">
+                    <a href="<?php echo $this->url('account', ['action' => 'logout']); ?>"
+                       class=" btn btn-info customize-btn-logout">
+                        <span class="glyphicon glyphicon-log-out"></span> Wyloguj
+                    </a>
+                </div>
+                <?php if ($isAdmin) : ?>
+                    <div id="sidebar-wrapper">
+                        <ul class="nav sidebar-nav nav-customize-sidebar">
+                            <li class="sidebar-brand">
+                                <a href="<?php echo $this->url('admin', ['action' => 'index']) ?>">
+                                    Start Admin
+                                </a>
+                            </li>
+                            <li>
+                                <a href="<?php echo $this->url('advertisement', ['action' => 'list']) ?>">Ogłoszenia</a>
+                            </li>
+                            <li>
+                                <a href="<?php echo $this->url('test', ['action' => 'tests']) ?>">Testy</a>
+                            </li>
+                            <li>
+                                <a href="<?php echo $this->url('test', ['action' => 'allTests']) ?>">Testy
+                                    kandydatów</a>
+                            </li>
+                            <li>
+                                <a href="<?php echo $this->url('skill', ['action' => 'add']) ?>">Umiejętności</a>
+                            </li>
+                            <li>
+                                <a href="<?php echo $this->url('admin', ['action' => 'users']) ?>">Użytkownicy</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                <?php else : ?>
+                    <div id="sidebar-wrapper">
+                        <ul class="nav sidebar-nav nav-customize-sidebar">
+                            <li class="sidebar-brand">
+                                <a href="<?php echo $this->url('advertisement'); ?>">
+                                    Start
+                                </a>
+                            </li>
+                            <li>
+                                <a href="<?php echo $this->url('data', ['action' => 'index']) ?>">Moje konto</a>
+                            </li>
+                            <li>
+                                <a href="<?php echo $this->url('data', ['action' => 'experience']) ?>">Doświadczenie</a>
+                            </li>
+                            <li>
+                                <a href="<?php echo $this->url('data', ['action' => 'education']) ?>">Wykształcenie</a>
+                            </li>
+                            <li>
+                                <a href="<?php echo $this->url('recruitment', ['action' => 'myApplications']) ?>">Aplikacje</a>
+                            </li>
+                            <li>
+                                <a href="<?php echo $this->url('test', ['action' => 'myTests']) ?>">Testy</a>
+                            </li>
+                        </ul>
+                    </div>
+                <?php endif; ?>
+
+            </div>
+        <?php endif; ?>
+
+        <div
+            class=" <?php echo ($logged) ? 'col-lg-9 col-xs-11 customize-col-content ' : 'col-md-10 col-md-offset-1 customize-offset-content' ?>">
+            <?php
+            if ($this->flashMessenger()->hasMessages()) {
+                echo '<div class="alert alert-info alert-info-customize">';
+                $messages = $this->flashMessenger()->getMessages();
+                foreach ($messages as $message) {
+                    echo $message;
+                }
+                echo '</div>';
+            }
+            ?>
+
+            <?= $this->content ?>
+        </div>
+    </div>
+</div>
+
+
+<?= $this->inlineScript() ?>
+<script>
+
+
+    $(document).ready(function () {
+        $('.customize-col-sidebar').css('height', $('body').outerHeight() - $('.customize-navbar').height());
+    });
+    $('.trigger').click(function (e) {
+        e.preventDefault();
+        $('.customize-col-sidebar').toggleClass('is-active');
+    });
+
+</script>
+
+
+</body>
+</html>

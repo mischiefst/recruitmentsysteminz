@@ -1,0 +1,157 @@
+<div class="panel panel-default customize-panel">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <span class="glyphicon glyphicon-pencil"> </span> Tworzenie pytania
+        </h3>
+    </div>
+    <div class="panel-body">
+        <div class="customize-box-wrapper">
+            <form action="" method="post">
+                <div class="one-question" style="margin: 5px 100px">
+                    <div class="form-group">
+                        <?php $questionId = 0; ?>
+
+                        <fieldset class="type">
+                            <label class="col-md-4 control-label" for="question">Wybierz rodzaj pytania*</label>
+
+                            <div class="col-md-6">
+                                <div class="col-6-lg">
+                                    <select class="form-control" id="">
+                                        <option value="0">otwarte</option>
+                                        <option value="1">polotwarte</option>
+                                        <option value="2">zamkniete</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="open">
+                                <label class="col-md-4 control-label" for="question">Pytanie*</label>
+
+                                <div class="col-md-6">
+                                    <div class="col-6-lg">
+                                        <input type="text" class="form-control"
+                                               name="questions-open[<?php echo $questionId; ?>][question]" id=""/>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <fieldset class="semi-open" name="group-semi[]">
+
+                            <label class="col-md-4 control-label" for="question">Pytanie*</label>
+
+                            <div class="col-md-6">
+                                <div class="col-6-lg">
+                                    <input type="text" class="form-control"
+                                           name="questions-semi[<?php echo $questionId; ?>][question]" id=""/>
+                                </div>
+                            </div>
+
+                            <label class="col-md-4 control-label" for="question">Odpowiedź*</label>
+
+                            <div class="col-md-6">
+                                <div class="col-6-lg">
+                                    <input type="text" class="form-control"
+                                           name="questions-semi[<?php echo $questionId; ?>][answer]" id=""/>
+                                </div>
+                            </div>
+                        </fieldset>
+
+
+                        <fieldset class="closed">
+
+                            <label class="col-md-4 control-label" for="question">Pytanie*</label>
+
+                            <div class="col-md-6">
+                                <div class="col-6-lg">
+                                    <input type="text" class="form-control"
+                                           name="questions-closed[<?php echo $questionId; ?>][question]" id=""/>
+                                </div>
+                            </div>
+
+                            <label class="col-md-4 control-label" for="question">Odpowiedź prawidłowa*: </label>
+
+                            <div class="col-md-6">
+                                <div class="col-6-lg">
+                                    <input type="text" class="form-control"
+                                           name="questions-closed[<?php echo $questionId; ?>][answer-correct]"
+                                           id=""/>
+                                </div>
+                            </div>
+                            <label class="col-md-4 control-label" for="question">Odpowiedź nieprawidłowa 1*: </label>
+
+                            <div class="col-md-6">
+                                <div class="col-6-lg">
+                                    <input type="text" class="form-control"
+                                           name="questions-closed[<?php echo $questionId; ?>][answer-incorrect1]"
+                                           id=""/>
+                                </div>
+                            </div>
+                            <label class="col-md-4 control-label" for="question">Odpowiedź nieprawidłowa 2*: </label>
+
+                            <div class="col-md-6">
+                                <div class="col-6-lg">
+                                    <input type="text" class="form-control"
+                                           name="questions-closed[<?php echo $questionId; ?>][answer-incorrect2]"
+                                           id=""/>
+                                </div>
+                            </div>
+                            <label class="col-md-4 control-label" for="question">Odpowiedź nieprawidłowa 3*: </label>
+
+                            <div class="col-md-6">
+                                <div class="col-6-lg">
+                                    <input type="text" class="form-control"
+                                           name="questions-closed[<?php echo $questionId; ?>][answer-incorrect3]"
+                                           id=""/>
+                                </div>
+                            </div>
+                        </fieldset>
+
+                    </div>
+                </div>
+                <div class="text-center">
+                    <input class="btn btn-primary" type="submit" value="dodaj pytanie"/>
+
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <style>
+        form .closed, form .semi-open {
+            display: none;
+        }
+
+        .question-template {
+            display: none;
+        }
+
+    </style>
+
+    <script>
+        $(document).on('change', 'fieldset select', function () {
+            var parent = $(this).parents('.one-question');
+            console.log(parent);
+            if ($(this).val() == 0) {
+                parent.find('.closed, .semi-open').hide();
+                parent.find('.open').show();
+
+            }
+
+            if ($(this).val() == 1) {
+                parent.find('.semi-open').show();
+                parent.find('.closed').hide();
+                parent.find('.open').hide();
+
+            }
+
+            if ($(this).val() == 2) {
+                parent.find('.closed').show();
+                parent.find('.semi-open').hide();
+                parent.find('.open').hide();
+
+            }
+        });
+        var questionId =  <?php echo $questionId; ?>;
+
+    </script>

@@ -1,0 +1,222 @@
+<div class="panel panel-default customize-panel">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <span class="glyphicon glyphicon-pencil"> </span> Testy
+        </h3>
+    </div>
+    <div class="panel-body  table-responsive">
+        <div>
+            <span class="pull-right">
+                        <ul class="nav panel-tabs">
+                            <li class="active"><a href="#tab1" data-toggle="tab">Aktualne</a></li>
+                            <li><a href="#tab2" data-toggle="tab">Zakończone</a></li>
+                        </ul>
+            </span>
+        </div>
+
+        <div class="tab-content">
+            <div class="tab-pane active" id="tab1">
+                <div class="customize-box-wrapper">
+                    <div class="customize-box-wrapper">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Ogłoszenie</th>
+                                <th>Nazwa testu</th>
+                                <th>Data testu</th>
+                                <th>Akcja</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php foreach ($testsNew as $test) : ?>
+                                <tr>
+                                    <td class="col-md-3"><?php echo $test['job_title'] ?></td>
+                                    <td class="col-md-3"><?php echo $test['name'] ?></td>
+                                    <td class="col-md-3"><?php echo $test['date'] ?></td>
+
+                                    <td><?php
+                                        if ($test['status'] != 'test') {
+                                            switch ($test['status']) {
+                                                case 'po tescie': {
+                                                    echo "Test został wypełniony. Czekaj na wynik.";
+                                                }
+                                                    break;
+                                                case 'rozmowa': {
+                                                    echo "Twoj wynik jest pozytywny. Zostałeś zaproszony na rozmowę.";
+                                                }
+                                                    break;
+                                                case 'odrzucona': {
+                                                    echo "Twoj wynik jest negatywny. Kandydatura została odrzucona";
+                                                }
+                                                    break;
+                                            }
+                                        } else {
+                                            $timeEnd = (isset($_COOKIE['test-' . $test['idResult']]) ? $_COOKIE['test-' . $test['idResult']] : 0) + ($test['time'] * 60);
+                                            $actualTime = time();
+                                            $timeToEnd = $timeEnd - $actualTime;
+
+                                            $time = strtotime($test['date']);
+                                            $dateEnd = date("Y-m-d H:i:s", strtotime('+15 minutes', $time));
+
+                                            if (isset($_COOKIE['test-' . $test['idResult']]) && $timeToEnd > 0) {
+                                                echo '<a href=" ' . $this->url('test', ['action' => 'solve', 'id' => $test['idResult']]) . ' " class="btn btn-primary" onclick="return entryPassword(\'' . $test['password'] . '\')"> Rozwiąż</a>';
+                                                echo '<br /> Pozostało Ci jeszcze ok. ' . floor($timeToEnd / 60) . ' min.';
+                                            } else if (date('Y-m-d H:i:s') >= $dateEnd) {
+                                                echo 'Minął czas na wypełnienie testu. Aplikacja została odrzucona';
+                                                if ($test['status'] != 'odrzucona') {
+                                                    $helper = new Application\View\Helper\Helper();
+                                                    $helper->rejectApplication($test['Application_idApplication']);
+                                                }
+                                            } else if (date("Y-m-d H:i:s") > $test['date']) {
+                                                echo '<a href=" ' . $this->url('test', ['action' => 'solve', 'id' => $test['idResult']]) . ' " class="btn btn-primary" onclick="return entryPassword(\'' . $test['password'] . '\')"> Rozwiąż</a>';
+                                            } else {
+                                                echo 'Nie możesz jeszcze wypełnić testu';
+                                            }
+                                        }
+                                        ?>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane" id="tab2">
+                <div class="customize-box-wrapper">
+                    <div class="customize-box-wrapper ">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Ogłoszenie</th>
+                                <th>Nazwa testu</th>
+                                <th>Data testu</th>
+                                <th>Akcja</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php foreach ($testsEnded as $test) : ?>
+                                <tr>
+                                    <td class="col-md-3"><?php echo $test['job_title'] ?></td>
+                                    <td class="col-md-3"><?php echo $test['name'] ?></td>
+                                    <td class="col-md-3"><?php echo $test['date'] ?></td>
+
+                                    <td><?php
+                                        if ($test['status'] != 'test') {
+                                            switch ($test['status']) {
+                                                case 'po tescie': {
+                                                    echo "Test został wypełniony. Czekaj na wynik.";
+                                                }
+                                                    break;
+                                                case 'rozmowa': {
+                                                    echo "Twoj wynik jest pozytywny. Zostałeś zaproszony na rozmowę.";
+                                                }
+                                                    break;
+                                                case 'odrzucona': {
+                                                    echo "Twoj wynik jest negatywny. Kandydatura została odrzucona";
+                                                }
+                                                    break;
+                                            }
+                                        } else {
+                                            $timeEnd = (isset($_COOKIE['test-' . $test['idResult']]) ? $_COOKIE['test-' . $test['idResult']] : 0) + ($test['time'] * 60);
+                                            $actualTime = time();
+                                            $timeToEnd = $timeEnd - $actualTime;
+
+                                            $time = strtotime($test['date']);
+                                            $dateEnd = date("Y-m-d H:i:s", strtotime('+15 minutes', $time));
+
+                                            if (isset($_COOKIE['test-' . $test['idResult']]) && $timeToEnd > 0) {
+                                                echo '<a href=" ' . $this->url('test', ['action' => 'solve', 'id' => $test['idResult']]) . ' " class="btn btn-primary" onclick="return entryPassword(\'' . $test['password'] . '\')"> Rozwiąż</a>';
+                                                echo '<br /> Pozostało Ci jeszcze ok. ' . floor($timeToEnd / 60) . ' min.';
+                                            } else if (date('Y-m-d H:i:s') >= $dateEnd) {
+                                                echo 'Minął czas na wypełnienie testu. Aplikacja została odrzucona';
+                                                if ($test['status'] != 'odrzucona') {
+                                                    $helper = new Application\View\Helper\Helper();
+                                                    $helper->rejectApplication($test['Application_idApplication']);
+                                                }
+                                            } else if (date("Y-m-d H:i:s") > $test['date']) {
+                                                echo '<a href=" ' . $this->url('test', ['action' => 'solve', 'id' => $test['idResult']]) . ' " class="btn btn-primary" onclick="return entryPassword(\'' . $test['password'] . '\')"> Rozwiąż</a>';
+                                            } else {
+                                                echo 'Nie możesz jeszcze wypełnić testu';
+                                            }
+                                        }
+                                        ?>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
+
+
+<script>
+    function entryPassword(password) {
+        var passwordTest = password;
+        var passwordEntry = window.prompt("Podaj hasło do testu: ", "");
+        console.log(passwordTest == passwordEntry);
+        if (passwordTest == passwordEntry) {
+            return true;
+        }
+        else {
+            window.alert("Hasło nie jest prawidłowe.");
+            return false;
+        }
+    }
+
+</script>
+
+<style>
+    /*Panel tabs*/
+    .panel-tabs {
+        position: relative;
+        bottom: 0px;
+        clear: both;
+        border-bottom: 1px solid transparent;
+    }
+
+    .panel-tabs > li {
+        float: left;
+        margin-right: 2px;
+        margin-top: 4px;
+        line-height: .85;
+        border: 1px solid transparent;
+        border-radius: 4px 4px 0 0;
+        color: #918D99;
+        background: #edf4f4;
+    }
+
+    .panel-tabs > li > a {
+        line-height: .85;
+        border: 1px solid transparent;
+        border-radius: 4px 4px 0 0;
+        color: #918D99;
+    }
+
+    .panel-tabs > li > a:hover {
+        border-color: transparent;
+        color: #9898a3;
+
+    }
+
+    .panel-tabs > li.active > a,
+    .panel-tabs > li.active > a:hover,
+    .panel-tabs > li.active > a:focus {
+        color: #aaafb4;
+        cursor: default;
+        font-weight: bold;
+        -webkit-border-radius: 2px;
+        -moz-border-radius: 2px;
+        border-radius: 2px;
+        background-color: rgba(255, 255, 255, .23);
+        border-bottom-color: transparent;
+    }
+</style>

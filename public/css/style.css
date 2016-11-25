@@ -1,0 +1,105 @@
+body {
+    font-family: Arial;
+    background: #FFFFFF;
+}
+
+.nav > li > a {
+    color: #858598;
+}
+
+ul.sidebar-nav li {
+    padding-left: 10px;
+}
+
+.nav-customize-sidebar > li > a:hover {
+    background-color: #1e1e29;
+    color: #ffffff;
+    border-right: 5px solid #2196f3;
+}
+
+.navbar-default .navbar-nav > li > a:hover {
+    background-color: #2196f3;
+    color: #ffffff;
+}
+
+div.container-fluid {
+    padding: 0;
+}
+
+nav.customize-navbar {
+    background: #1e1e29;
+    margin: 0;
+    border-radius: 0;
+    font-family: Segoe UI;
+    border: 0;
+}
+
+div.customize-container-fluid {
+    margin-right: 0px;
+}
+
+a.customize-brand {
+    float: none;
+    line-height: 47px;
+}
+
+.navbar-default .navbar-brand {
+    color: #ffffff;
+}
+
+.row {
+    margin-right: 0px;
+}
+
+.customize-col-sidebar {
+    background: #272634;
+    padding: 0;
+    padding-top: 10px;
+    font-family: Segoe UI;
+    height: 576px;
+}
+
+.customize-col-content {
+    background: #F4F5F7;
+    margin: 0;
+    padding-top: 10px;
+    height: 576px;
+    border-top: 4px solid #2196f3;
+}
+
+.customize-panel > .panel-heading {
+    color: #FFFFFF;
+    background: #2196f3
+}
+
+.customize-panel > .panel-heading > .panel-title {
+    font-size: 15px;
+    font-family: FontAwesome;
+    text-transform: uppercase
+}
+
+.customize-panel > .panel-heading > .panel-title > .glyphicon {
+    padding: 3px;
+}
+
+.customize-panel > .panel-body > button {
+    margin: 8px 10px 3px;
+    padding: 3px 5px;
+    float: right;
+    background: #2196f3;
+    color: #ffffff;
+    font-size: 14px;
+}
+
+.customize-countdown {
+    color: #1B232F;
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+label{
+    font-weight: bold;
+}
+

@@ -1,0 +1,138 @@
+<div class="panel panel-default customize-panel">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <span class="glyphicon glyphicon-pencil"> </span> Tworzenie pytania
+        </h3>
+    </div>
+    <div class="panel-body">
+        <div class="customize-box-wrapper">
+            <form action="" method="post">
+                <div class="one-question" style="margin: 5px 100px">
+                    <div class="form-group">
+                        <?php $questionId = $question->idQuestion; ?>
+
+                        <?php if ($question->type == 'open'): ?>
+                            <fieldset class="type">
+                                <div class="open">
+                                    <label class="col-md-4 control-label" for="question">Pytanie*</label>
+
+                                    <div class="col-md-6">
+                                        <div class="col-6-lg">
+                                            <input type="text" class="form-control"
+                                                   name="questions-open[<?php echo $questionId; ?>][question]"
+                                                   value="<?php echo $question->text; ?>"
+                                                   id=""/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        <?php elseif ($question->type == 'closed'): ?>
+                            <fieldset class="closed">
+
+                                <label class="col-md-4 control-label" for="question">Pytanie*</label>
+
+                                <div class="col-md-6">
+                                    <div class="col-6-lg">
+                                        <input type="text" class="form-control"
+                                               name="questions-closed[<?php echo $questionId; ?>][question]"
+                                               value="<?php echo $question->text; ?>"
+                                               id=""/>
+                                    </div>
+                                </div>
+
+                                <label class="col-md-4 control-label" for="question">Odpowiedź prawidłowa*: </label>
+
+                                <div class="col-md-6">
+                                    <div class="col-6-lg">
+                                        <input type="text" class="form-control"
+                                               name="questions-closed[<?php echo $questionId; ?>][answer-correct]"
+                                               value="<?php echo $answers['correct']->answer ?>"
+                                               id=""/>
+                                        <input type="hidden"
+                                               name="questions-closed[<?php echo $questionId; ?>][answer-correctId]"
+                                               value="<?php echo $answers['correct']->idAnswer ?>"/>
+                                    </div>
+                                </div>
+                                <label class="col-md-4 control-label" for="question">Odpowiedź nieprawidłowa
+                                    1*: </label>
+
+                                <div class="col-md-6">
+                                    <div class="col-6-lg">
+                                        <input type="text" class="form-control"
+                                               name="questions-closed[<?php echo $questionId; ?>][answer-incorrect1]"
+                                               value="<?php echo $answers['incorrect-1']->answer ?>"
+
+                                               id=""/>
+                                        <input type="hidden"
+                                               name="questions-closed[<?php echo $questionId; ?>][answer-incorrect1Id]"
+                                               value="<?php echo $answers['incorrect-1']->idAnswer ?>"/>
+                                    </div>
+                                </div>
+                                <label class="col-md-4 control-label" for="question">Odpowiedź nieprawidłowa
+                                    2*: </label>
+
+                                <div class="col-md-6">
+                                    <div class="col-6-lg">
+                                        <input type="text" class="form-control"
+                                               name="questions-closed[<?php echo $questionId; ?>][answer-incorrect2]"
+                                               value="<?php echo $answers['incorrect-2']->answer ?>"
+                                               id=""/>
+                                        <input type="hidden"
+                                               name="questions-closed[<?php echo $questionId; ?>][answer-incorrect2Id]"
+                                               value="<?php echo $answers['incorrect-2']->idAnswer ?>"/>
+                                    </div>
+                                </div>
+                                <label class="col-md-4 control-label" for="question">Odpowiedź nieprawidłowa
+                                    3*: </label>
+
+                                <div class="col-md-6">
+                                    <div class="col-6-lg">
+                                        <input type="text" class="form-control"
+                                               name="questions-closed[<?php echo $questionId; ?>][answer-incorrect3]"
+                                               value="<?php echo $answers['incorrect-3']->answer ?>"
+                                               id=""/>
+                                        <input type="hidden"
+                                               name="questions-closed[<?php echo $questionId; ?>][answer-incorrect3Id]"
+                                               value="<?php echo $answers['incorrect-3']->idAnswer ?>"/>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        <?php else: ?>
+                            <fieldset class="semi-open" name="group-semi[]">
+
+                                <label class="col-md-4 control-label" for="question">Pytanie*</label>
+
+                                <div class="col-md-6">
+                                    <div class="col-6-lg">
+                                        <input type="text" class="form-control"
+                                               name="questions-semi[<?php echo $questionId; ?>][question]"
+                                               value="<?php echo $question->text; ?>"
+                                               id=""/>
+                                    </div>
+                                </div>
+
+                                <label class="col-md-4 control-label" for="question">Odpowiedź*</label>
+
+                                <div class="col-md-6">
+                                    <div class="col-6-lg">
+                                        <input type="text" class="form-control"
+                                               name="questions-semi[<?php echo $questionId; ?>][answer]"
+                                               value="<?php echo $answers['correct']->answer ?>"
+                                               id=""/>
+                                        <input type="hidden" name="questions-semi[<?php echo $questionId; ?>][answerId]"
+                                               value="<?php echo $answers['correct']->idAnswer ?>"/>
+
+                                    </div>
+                                </div>
+                            </fieldset>
+                        <?php endif; ?>
+
+
+                    </div>
+                </div>
+                <div class="text-center">
+                    <input class="btn btn-primary" type="submit" value="Zapisz zmiany"/>
+                </div>
+            </form>
+        </div>
+    </div>

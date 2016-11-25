@@ -1,0 +1,58 @@
+<?php foreach ($advertisements as $advertisement) : ?>
+
+    <div class="panel panel-default  customize-panel customize-panel-adv">
+        <div class="panel-heading">
+            <h3 class="panel-title" style="">
+                <span class="glyphicon glyphicon-th-list"> </span> Ogłoszenie
+                #<?php echo $advertisement['idAdvertisement']; ?>
+                <?php echo $advertisement['job_title']; ?>
+            </h3>
+        </div>
+        <div class="panel-body text-justify">
+            <?php if (strlen(strip_tags($advertisement['text'])) > 600) {
+                echo substr(strip_tags($advertisement['text']), 0, 600) . '(...)';
+            } else {
+                echo strip_tags($advertisement['text']);
+
+            } ?>
+            <div class="nav-buttons">
+                <a class="btn btn-primary"
+                   href="<?php echo $this->url('recruitment', ['action' => 'apply', 'id' => $advertisement['idAdvertisement']]) ?>">Aplikuj</a>
+                <a class="btn btn-primary"
+                   href="<?php echo $this->url('advertisement', ['action' => 'details', 'id' => $advertisement['idAdvertisement']]) ?>">
+                    Szczegóły
+                </a>
+            </div>
+
+        </div>
+    </div>
+<?php endforeach; ?>
+<div style="text-align: center">
+    <button href="#" id="loadMore">Pokaż poprzednie</button>
+</div>
+
+
+<script>
+    $(function () {
+        $("div.customize-panel-adv").slice(0, 4).show();
+        $("#loadMore").on('click', function (e) {
+            e.preventDefault();
+            $("div.customize-panel-adv:hidden").slice(0, 4).slideDown();
+            if ($("div.customize-panel-adv:hidden").length == 0) {
+                $("#load").fadeOut('slow');
+            }
+            $('html,body').animate({
+                scrollTop: $(this).offset().top
+            }, 1500);
+
+
+
+        });
+
+
+
+    });
+    setTimeout(function(){
+        $('.customize-col-sidebar').css('height', $('body').outerHeight() - $('.customize-navbar').height());
+    },2000);
+</script>

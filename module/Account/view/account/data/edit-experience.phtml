@@ -1,0 +1,66 @@
+<div class="panel panel-default customize-panel">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <span class="glyphicon glyphicon-list-alt"> </span> Doświadczenie - edycja
+        </h3>
+    </div>
+
+    <?php
+
+    $helper = new \Application\View\Helper\Helper();
+
+    $form->prepare();
+
+    echo $this->form()->openTag($form);
+    echo $this->formHidden($form->get('idExperience'));
+
+    ?>
+    <fieldset>
+        <div class="form-group">
+            <?php echo $this->formLabel($form->get('company_name')); ?>
+            <div class="col-md-6">
+                <?php echo $this->formInput($form->get('company_name')); ?>
+                <?php echo $helper->formError($this, $form, 'company_name'); ?>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <?php echo $this->formLabel($form->get('job_title')); ?>
+            <div class="col-md-6">
+                <?php echo $this->formInput($form->get('job_title')); ?>
+                <?php echo $helper->formError($this, $form, 'job_title'); ?>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <?php echo $this->formLabel($form->get('date_from')); ?>
+            <div class="col-md-6">
+                <?php echo $this->formElement($form->get('date_from')); ?>
+                <?php echo $helper->formError($this, $form, 'date_from'); ?>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <?php echo $this->formLabel($form->get('date_to')); ?>
+            <div class="col-md-6">
+                <?php echo $this->formElement($form->get('date_to')); ?>
+                <?php echo $helper->formError($this, $form, 'date_to'); ?>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <?php echo $this->formLabel($form->get('description')); ?>
+            <div class="col-md-6">
+                <?php echo $this->formElement($form->get('description')); ?>
+                <?php echo $helper->formError($this, $form, 'description'); ?>
+            </div>
+        </div>
+
+    </fieldset>
+    <div class="text-center">
+        <?php $form->get('submit')->setAttribute('value', 'Zapisz zmiany') ?>
+
+        <?php echo $this->formSubmit($form->get('submit')); ?>
+    </div>
+    <?php echo $this->form()->closeTag(); ?>
+</div>
